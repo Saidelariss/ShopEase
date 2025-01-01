@@ -3,13 +3,15 @@ package com.ecom.shopease.entities;
 import com.ecom.shopease.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
-public class User {
+@NoArgsConstructor
+public class CompteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,7 +22,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "user")
-    List<CartItem> cartItems;
+    private List<CartItem> cartItems;
     @OneToMany(mappedBy = "user")
-    List<Order> orders;
+    private List<Order> orders;
 }

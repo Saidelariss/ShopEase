@@ -2,16 +2,18 @@ package com.ecom.shopease.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private double price;
@@ -23,7 +25,6 @@ public class Product {
     private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "product")
     List<CartItem> cartItems;
-    @OneToMany(mappedBy = "product")
-    List<OrderItem> orderItems;
+
 
 }
