@@ -12,7 +12,7 @@ import java.util.List;
 public class ProductService {
     private ProductRepository repository;
 
-    Page<Product> getProducts(Pageable pageable){
+    public Page<Product> getProducts(Pageable pageable){
         return repository.findAll(pageable);
     }
 }
