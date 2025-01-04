@@ -1,18 +1,17 @@
 package com.ecom.shopease.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
 public class Product {
     @Id
@@ -28,7 +27,5 @@ public class Product {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "product")
-    private List<CartItem> cartItems;
-
-
+    private List<CartItem> cartItems = new ArrayList<>();
 }
