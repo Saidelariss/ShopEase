@@ -18,7 +18,7 @@ public class ShopEaseApplication {
 		SpringApplication.run(ShopEaseApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner commandLineRunner(ApplicationContext context){
 		return args -> {
 			String[] beanDefinitionNames = context.getBeanDefinitionNames();
@@ -28,7 +28,7 @@ public class ShopEaseApplication {
 		};
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner commandLineRunner2(ProductRepository productRepository){
 		return args -> {
 			Product p1= new Product();
