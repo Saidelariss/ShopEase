@@ -1,7 +1,7 @@
 package com.ecom.shopease.apis;
 
 import com.ecom.shopease.dtos.AddCategoryRequest;
-import com.ecom.shopease.entities.Category;
+import com.ecom.shopease.dtos.CategoryResponse;
 import com.ecom.shopease.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public Page<Category> getCategories(Pageable pageable){
+    public Page<CategoryResponse> getCategories(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
