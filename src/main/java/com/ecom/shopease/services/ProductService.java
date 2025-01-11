@@ -7,10 +7,15 @@ import com.ecom.shopease.entities.Product;
 import com.ecom.shopease.mappers.ProductMapper;
 import com.ecom.shopease.repositories.CategoryRepository;
 import com.ecom.shopease.repositories.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -20,6 +25,8 @@ public class ProductService {
     private ProductMapper mapper;
     @Autowired
     private CategoryRepository categoryRepository;
+
+    private ModelMapper modelMapper = new ModelMapper();//risque
 
     public Page<ProductResponse> getProducts(Pageable pageable) {
         Page<Product> products = repository.findAll(pageable);
@@ -44,6 +51,12 @@ public class ProductService {
         product.setCategory(category);
         repository.save(product);
 
+    }
 
+    <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
+        return source
+                .stream()
+                .map(element -> modelMapper.map(element, targetClass))
+                .collect(Collectors.toList());
     }
 }
