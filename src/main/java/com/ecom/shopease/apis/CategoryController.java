@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/categories")
@@ -31,6 +33,11 @@ public class CategoryController {
     @GetMapping("details")
     public Page<CategoryResponseWithProducts> getCategoriesWithProducts(Pageable pageable) {
         return categoryService.findWithProducts(pageable);
+    }
+
+    @GetMapping("all")
+    public List<CategoryResponseWithProducts> getAllCategoriesWithProducts(){
+        return categoryService.findAllCategoriesWithProducts();
     }
 
 }

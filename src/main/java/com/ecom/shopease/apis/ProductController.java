@@ -12,27 +12,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
+@RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/products")
+    @PostMapping
     public ResponseEntity<Void> createProduct(@RequestBody AddProductRequest product) {
         productService.createProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/products")
+    @GetMapping
     public Page<ProductResponse> getProducts(Pageable pageable) {
         return productService.getProducts(pageable);
     }
 
-    @PatchMapping("/products/{productId}")
+    @PatchMapping("/{productId}")
     public ResponseEntity<Void> updateProduct(@PathVariable Integer productId, @RequestParam Integer categoryId) {
 
         productService.updateCategory(productId,categoryId);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/withCategoryId")
+    public List<ProductResponse> findAllProductsWithCategoryId() {
+        return productService.findAllProductsWithCategoryId();
     }
 }
