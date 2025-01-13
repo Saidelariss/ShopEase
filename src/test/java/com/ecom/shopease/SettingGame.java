@@ -6,6 +6,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class SettingGame {
-    private int maxPlayers;
+    private double maxPlayers;
     private String mode;
 }
