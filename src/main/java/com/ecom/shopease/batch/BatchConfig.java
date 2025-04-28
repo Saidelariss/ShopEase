@@ -21,8 +21,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@Configuration
-@EnableBatchProcessing
+//@Configuration
+//@EnableBatchProcessing
 public class BatchConfig {
     private CategoryRepository categoryRepository;
 
@@ -46,7 +46,7 @@ public class BatchConfig {
 
 
 
-    @Bean
+   // @Bean
     public FlatFileItemReader<Category> reader() {
         FlatFileItemReader<Category> itemReader = new FlatFileItemReader();
         itemReader.setResource(new FileSystemResource("src/main/resources/categories.csv"));
@@ -72,12 +72,12 @@ public class BatchConfig {
         return lineMapper;
     }
 
-    @Bean
+  //  @Bean
     public ItemProcessor<Category, Category> processor() {
         return new CategoryProcessor();
     }
 
-    @Bean
+    //@Bean
     public ItemWriter<Category> writer(){
         RepositoryItemWriter<Category> writer = new RepositoryItemWriter<>();
         writer.setRepository(categoryRepository);
@@ -85,7 +85,7 @@ public class BatchConfig {
         return writer;
     }
 
-    @Bean
+    //@Bean
     public Step step(JobRepository jobRepository,
                      PlatformTransactionManager transactionManager) {
         return new StepBuilder("csvReader",jobRepository)
@@ -96,7 +96,7 @@ public class BatchConfig {
                 .build();
     }
 
-    @Bean
+ //   @Bean
     public Job runJob(JobRepository jobRepository, Step step){
         return new JobBuilder("categoryJob",jobRepository)
                 .start(step)
