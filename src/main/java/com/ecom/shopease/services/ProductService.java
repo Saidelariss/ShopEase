@@ -7,15 +7,12 @@ import com.ecom.shopease.entities.Product;
 import com.ecom.shopease.mappers.ProductMapper;
 import com.ecom.shopease.repositories.CategoryRepository;
 import com.ecom.shopease.repositories.ProductRepository;
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +26,7 @@ public class ProductService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ModelMapper modelMapper;
-//    @Autowired
+    //    @Autowired
 //    private Converter<Category, String> categoryStringConverter;
     @Autowired
     private ProductMapper productMapper;
@@ -37,9 +34,7 @@ public class ProductService {
 
     public Page<ProductResponse> getProducts(Pageable pageable) {
         Page<Product> products = repository.findAll(pageable);
-        return products.map(product -> {
-            return mapper.toProductResponse(product);
-        });
+        return products.map(product -> mapper.toProductResponse(product));
 
     }
 
@@ -73,12 +68,11 @@ public class ProductService {
     }
 
     public List<ProductResponse> findAllProductsWithCategoryId() {
-      //  modelMapper.addConverter(categoryStringConverter, Category.class, String.class);
+        //  modelMapper.addConverter(categoryStringConverter, Category.class, String.class);
 
         return repository.findAll().stream().map(product -> {
-            ProductResponse productResponse = modelMapper.map(product, ProductResponse.class);
-          //  productResponse.setCategoryName(modelMapper.map(product.getCategory(),String.class));
-            return productResponse;
+            //  productResponse.setCategoryName(modelMapper.map(product.getCategory(),String.class));
+            return modelMapper.map(product, ProductResponse.class);
         }).toList();
     }
 }

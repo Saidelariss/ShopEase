@@ -30,9 +30,11 @@ public class ModelMapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-        TypeMap<Product, ProductResponse> typeMap = modelMapper.createTypeMap(Product.class, ProductResponse.class);
+        TypeMap<Product, ProductResponse> typeMap = modelMapper.typeMap(Product.class, ProductResponse.class);
         typeMap.addMappings(mapper -> {
-            mapper.using(convertCategoryToString()).map(Product::getCategory, ProductResponse::setCategoryName);
+            mapper
+                    .using(convertCategoryToString())
+                    .map(Product::getCategory, ProductResponse::setCategoryName); // this is important to indicate which fields we should apply the conversion
         });
         return modelMapper;
     }
